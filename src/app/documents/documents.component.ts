@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { fromEvent, Observable, of } from 'rxjs';
+import { BehaviorSubject, fromEvent, Observable } from 'rxjs';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { DocumentApiService } from './services/documents-api.service';
 import { Document } from '../models/document';
@@ -13,6 +13,7 @@ export class DocumentsComponent implements AfterViewInit {
   @ViewChild('search') searchInput: ElementRef;
 
   public documents$: Observable<Document[]>;
+  public seaching$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private documentApi: DocumentApiService) {}
 
@@ -20,7 +21,9 @@ export class DocumentsComponent implements AfterViewInit {
     const input = this.searchInput.nativeElement as HTMLInputElement;
     this.documents$ = fromEvent(input, 'keyup').pipe(
       debounceTime(500),
-      switchMap(() => this.documentApi.search(input.value))
+      tap(() => this.seaching$.next(true)),
+      switchMap(() => this.documentApi.search(input.value)),
+      tap(() => this.seaching$.next(false))
     );
   }
 }

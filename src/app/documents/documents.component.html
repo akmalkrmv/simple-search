@@ -1,5 +1,6 @@
 <section class="search">
   <input #search placeholder="serch documents.." />
+  <small *ngIf="seaching$ | async">searching..</small>
 </section>
 
 <section class="documents">
