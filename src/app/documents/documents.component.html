@@ -1,0 +1,12 @@
+<section class="search">
+  <input #search placeholder="serch documents.." />
+</section>
+
+<section class="documents">
+  <div>
+    <app-document-list [documents]="documents$ | async"></app-document-list>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</section>

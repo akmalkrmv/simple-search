@@ -1,0 +1,11 @@
+<ng-container *ngIf="documents && documents.length">
+  <ul>
+    <li *ngFor="let document of documents" [routerLink]="document.title">
+      {{ document.title }}
+    </li>
+  </ul>
+</ng-container>
+
+<ng-container *ngIf="!documents || !documents.length">
+  No documents yet
+</ng-container>

@@ -1,0 +1,8 @@
+<ng-container *ngIf="document">
+  <h2>{{ document.title }}</h2>
+  <div>{{ document.content }}</div>
+</ng-container>
+
+<ng-container *ngIf="!document">
+  <div>Document not selected</div>
+</ng-container>
